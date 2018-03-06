@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "lerna": "2.9.0"
+  },
+  "name": "noblog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lerna run start --parallel"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,0 +1,3 @@
+# Created by .ignore support plugin (hsz.mobi)
+packages/server/node_modules
+packages/server/src/config.json
