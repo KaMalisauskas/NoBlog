@@ -5,5 +5,9 @@
   },
   "passport": {
     "secret": "sadfdsagdasgf4r"
+  },
+  "newsletter": {
+    "email": "tomakajunior@gmail.com",
+    "password": "juniordev"
   }
 }

@@ -61,10 +61,7 @@ export const deleteUser = async (req, res) => {
     const username = req.body.username
     try {
         const User = await UserModel.findOneAndRemove({username})
-        if(!User) return res.status(404).json({
-            success: false,
-            error: "User does not exist"
-        })
+        if(!User) throw new Error("User does not exist")
         res.status(200).json({
             success: true,
             data: `User ${user.username} successfully deleted`
