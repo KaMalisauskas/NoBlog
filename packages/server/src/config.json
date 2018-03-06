@@ -2,5 +2,8 @@
   "mongoose": {
     "user": "karkia",
     "password": "aikrak"
+  },
+  "passport": {
+    "secret": "sadfdsagdasgf4r"
   }
 }
