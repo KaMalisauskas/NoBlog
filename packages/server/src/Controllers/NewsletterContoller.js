@@ -45,6 +45,7 @@ export const deleteSub = async (req, res) => {
         if(!Sub) throw new Error("No subscribed by given email founded")
 
         Helper.successHandler("Successfully Unsubscribed", res)
+
     }catch(error) {
         Helper.errorHandler(String(err), 400, res)
     }
