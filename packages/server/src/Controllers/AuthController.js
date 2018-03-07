@@ -1,59 +1,35 @@
 import UserService from '../Modules/Auth/UserService'
 import UserModel from "../Modules/Auth/UserModel"
+import Helper from "./Helper"
 
-
-export const index = (req, res) => res.status(200).json({
-    success: "true",
-    message: "Welcome to Auth Route of NoBlog API"
-})
+export const index = (req, res) => Helper.successHandler("Welcome to Auth Route of NoBlog API", res)
 
 export const addUser = async (req, res) => {
     try{
         const User = await UserService.addUser(req.body)
-        res.status(200).json({
-            success: true,
-            data: User.toJson()
-        })
+        Helper.successHandler(User.toJson(), res)
     } catch(err) {
-        return res.status(400).json({
-            success: false,
-            error: String(err)
-        })
+       Helper.errorHandler(String(err), 400, res)
     }
 }
 
 export const login = (req, res, next) => {
-    res.status(200).json({
-        success: true,
-        data: req.user.toAuthJson()
-    })
+    Helper.successHandler(req.user.toAuthJson(), res)
     return next()
 }
 
 export const adminLogin = async (req, res, next) => {
-    if(!UserService.isAdmin(req.user)) return res.status(400).json({
-        success: false,
-        error: "User doesn't have admin privilege"
-    })
-    res.status(200).json({
-        success: true,
-        data: req.user.toAuthJson()
-    })
+    if(!UserService.isAdmin(req.user))  return Helper.errorHandler("User doesn't have admin privilege", 400, res)
+    Helper.successHandler(req.user.toAuthJson(), res)
     return next()
 }
 
 export const updateUser = async (req,res) => {
     try{
         const Update = await UserService.updateUser(req.body)
-        res.status(200).json({
-            success: true,
-            data: Update
-        })
+        Helper.successHandler(Update, res)
     } catch(err) {
-        res.status(400).json({
-            success:false,
-            error: String(err)
-        })
+        Helper.errorHandler(String(err), 400, res)
     }
 }
 
@@ -62,15 +38,9 @@ export const deleteUser = async (req, res) => {
     try {
         const User = await UserModel.findOneAndRemove({username})
         if(!User) throw new Error("User does not exist")
-        res.status(200).json({
-            success: true,
-            data: `User ${user.username} successfully deleted`
-        })
+        Helper.successHandler(`User ${user.username} successfully deleted`, res)
 
     } catch (err) {
-        res.status(400).json({
-            success:false,
-            error: String(err)
-        })
+        Helper.errorHandler(String(err), 400, res)
     }
 }

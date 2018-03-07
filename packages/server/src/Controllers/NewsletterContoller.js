@@ -1,11 +1,8 @@
 import NewsletterService from "../Modules/Newsletter/NewsletterService"
 import SubsModel from "../Modules/Newsletter/SubsModel"
+import Helper from "./Helper"
 
-
-export const index = (req, res) => res.status(200).json({
-    success: true,
-    data: "Welcome to Newsletters Route of NoBlog API"
-})
+export const index = (req, res) => Helper.successHandler("Welcome to Newsletters Route of NoBlog API", res)
 
 /*
     @TODO sanitize email
@@ -16,33 +13,25 @@ export const subscribe = async (req, res) => {
 
         await NewsletterService.subsFirstEmail(req.body)
 
-        res.status(200).json({
-            success: true,
-            data: "Subscription was successful"
-        })
+        Helper.successHandler("Subscription was successful", res)
 
     }catch(err) {
-        res.status(400).json({
-            success: false,
-            error: String(err)
-        })
+        Helper.errorHandler(String(err), 400, res)
     }
 }
 
 export const sendMail = async (req, res) => {
     try{
         if(!req.body.subject && !req.body.subject) throw new Error("Nothing to send")
+
         const Subscribed = await SubsModel.find()
+
         await NewsletterService.SendMail(req.body, Subscribed)
-        res.status(200).json({
-            success: true,
-            data: "Newsletter successfully sent"
-        })
+
+        Helper.successHandler("Newsletter successfully sent", res)
+
     } catch(err) {
-        res.status(200).json({
-            success: false,
-            error: String(err)
-        })
+        Helper.errorHandler(String(err), 400, res)
     }
 }
 
@@ -55,14 +44,8 @@ export const deleteSub = async (req, res) => {
 
         if(!Sub) throw new Error("No subscribed by given email founded")
 
-        res.status(200).json({
-            success: true,
-            data: "Successfully Unsubscribed"
-        })
+        Helper.successHandler("Successfully Unsubscribed", res)
     }catch(error) {
-        res.status(400).json({
-            success: false,
-            error: String(error)
-        })
+        Helper.errorHandler(String(err), 400, res)
     }
 }

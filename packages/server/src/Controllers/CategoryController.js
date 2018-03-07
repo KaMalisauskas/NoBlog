@@ -9,7 +9,7 @@ export const add = async (req, res) => {
         const AddCategory = await CategoryService.addCategory(req.body)
         Helper.successHandler("Category added successfully", res)
     }catch(err) {
-        Helper.errorHandler(err, 400, res)
+        Helper.errorHandler(String(err), 400, res)
     }
 }
 
@@ -18,16 +18,16 @@ export const update = async (req, res) => {
         const UpdateCategory = await CategoryService.updateCategory(req.body)
         Helper.successHandler(UpdateCategory, res)
     } catch (err) {
-        Helper.errorHandler(err, 400, res)
+        Helper.errorHandler(String(err), 400, res)
     }
 }
 
 export const getAll = async (req, res) => {
     try{
         const AllCategories = await CategoryModel.find()
-        if(!AllCategories) throw new Error("No categories exist")
+        if(!AllCategories.length) throw new Error("No categories exist")
         Helper.successHandler(AllCategories, res)
     } catch(err) {
-        Helper.errorHandler(err, 400, res)
+        Helper.errorHandler(String(err), 400, res)
     }
 }
