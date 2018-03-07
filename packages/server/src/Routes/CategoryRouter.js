@@ -3,13 +3,13 @@ import * as CategoryController from "../Controllers/CategoryController"
 
 const Router = express.Router()
 
-Router.get('/', CategoryController.index)
-Router.get("/getCategories", CategoryController.getAll)
+Router.get('/category/', CategoryController.index)
+Router.get("/category/getCategories", CategoryController.getAll)
 
-Router.post('/addCategory', CategoryController.add)
+Router.post('/category/addCategory', CategoryController.add)
 
-Router.put('/updateCategory', CategoryController.update)
+Router.put('/category/updateCategory', CategoryController.update)
 
-Router.delete('/deleteCategory', CategoryController.deleteOne)
+Router.delete('/category/deleteCategory', CategoryController.deleteOne)
 
 export default Router

@@ -3,7 +3,7 @@ import * as PostsController from "../Controllers/PostsController"
 const Router = express.Router();
 
 
-Router.get('/', PostsController.index)
+Router.get('/post/', PostsController.index)
 
 
 export default Router

@@ -8,6 +8,7 @@ import AuthRouter from './Routes/AuthRouter'
 import NewsletterRouter from "./Routes/NewsletterRouter"
 import PostsRouter from "./Routes/PostsRouter"
 import CategoryRouter from './Routes/CategoryRouter'
+import HomeRouter from "./Routes/HomeRouter"
 
 import "babel-polyfill";
 
@@ -23,9 +24,10 @@ app.get("/", (req, res) => res.status(200).json({
 }))
 
 //Routers that are used
-app.use('/auth', AuthRouter)
-app.use('/newsletter', NewsletterRouter)
-app.use('/category', CategoryRouter)
-app.use('/post', PostsRouter)
+app.use(AuthRouter)
+app.use(NewsletterRouter)
+app.use(CategoryRouter)
+app.use(PostsRouter)
+app.use(HomeRouter)
 
 export default app
