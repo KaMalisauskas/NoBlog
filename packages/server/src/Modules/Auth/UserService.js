@@ -23,62 +23,39 @@ class UserService {
         //Checking which field to update
         if(!newPassword && !newEmail)
 
-            try {
-                return UserModel.findOneAndUpdate({username}, {$set: {username: newUsername}}, {new: true})
-            } catch (err) {
-                return err
-            }
+            return UserModel.findOneAndUpdate({username}, {$set: {username: newUsername}}, {new: true})
 
         else if(!newUsername && !newPassword)
 
-            try{
-                return UserModel.findOneAndUpdate({username}, {$set: {email: newEmail}}, {new: true})
-            } catch (err) {
-                return err
-            }
+            return UserModel.findOneAndUpdate({username}, {$set: {email: newEmail}}, {new: true})
 
-        else if(!newUsername && !newEmail)
-            try{
-                const password = hashSync(password)
-                return UserModel.findOneAndUpdate({username}, {$set: {password}}, {new: true})
-            } catch (err) {
-                return err
-            }
+        else if(!newUsername && !newEmail) {
 
-        else if(!newEmail)
+            const password = hashSync(password)
+            return UserModel.findOneAndUpdate({username}, {$set: {password}}, {new: true})
+        }
 
-            try{
-                const password = hashSync(password)
-                return UserModel.findOneAndUpdate({username}, {$set: {username: newUsername, password}}, {new: true})
-            } catch (err) {
-                return err
-            }
+        else if(!newEmail) {
 
-        else if(!newUsername)
+            const password = hashSync(password)
+            return UserModel.findOneAndUpdate({username}, {$set: {username: newUsername, password}}, {new: true})
+        }
 
-            try{
-                const password = hashSync(password)
-                return UserModel.findOneAndUpdate({username}, {$set: {email: newEmail, password}}, {new: true})
-            } catch(err) {
-                return err
-            }
+        else if(!newUsername) {
+
+            const password = hashSync(password)
+            return UserModel.findOneAndUpdate({username}, {$set: {email: newEmail, password}}, {new: true})
+        }
 
         else if(!newPassword)
 
-            try{
-                return UserModel.findOneAndUpdate({username}, {$set: {email: newEmail, username: newUsername}}, {new: true})
-            } catch(err) {
-                return err
-            }
+            return UserModel.findOneAndUpdate({username}, {$set: {email: newEmail, username: newUsername}}, {new: true})
 
-        else
+        else {
+            const password = hashSync(password)
+            return UserModel.findOneAndUpdate({username}, {$set: {email: newEmail, password, username: newUsername}}, {new: true})
 
-            try{
-                const password = hashSync(password)
-                return UserModel.findOneAndUpdate({username}, {$set: {email: newEmail, password, username: newUsername}}, {new: true})
-            } catch(err) {
-                return err
-            }
+        }
     }
 
     loggingMiddleware(req, res, next) {
