@@ -6,6 +6,8 @@ import connect from "./DB/connect"
 //routers
 import AuthRouter from './Routes/AuthRouter'
 import NewsletterRouter from "./Routes/NewsletterRouter"
+import PostsRouter from "./Routes/PostsRouter"
+import CategoryRouter from './Routes/CategoryRouter'
 
 import "babel-polyfill";
 
@@ -23,5 +25,7 @@ app.get("/", (req, res) => res.status(200).json({
 //Routers that are used
 app.use('/auth', AuthRouter)
 app.use('/newsletter', NewsletterRouter)
+app.use('/category', CategoryRouter)
+app.use('/post', PostsRouter)
 
 export default app
