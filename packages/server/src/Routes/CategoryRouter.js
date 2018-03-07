@@ -10,4 +10,6 @@ Router.post('/addCategory', CategoryController.add)
 
 Router.put('/updateCategory', CategoryController.update)
 
+Router.delete('/deleteCategory', CategoryController.deleteOne)
+
 export default Router

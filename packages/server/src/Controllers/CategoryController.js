@@ -31,3 +31,13 @@ export const getAll = async (req, res) => {
         Helper.errorHandler(String(err), 400, res)
     }
 }
+
+export const deleteOne = async (req, res) => {
+    try{
+        const Delete = await CategoryModel.findOneAndRemove({_id: req.body.id})
+        if(!Delete) throw new Error('No category found by given id')
+        Helper.successHandler(`Category by id ${req.body.id} successfully deleted!`, res)
+    } catch(err) {
+        Helper.errorHandler(String(err), 400, res)
+    }
+}

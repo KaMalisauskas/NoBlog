@@ -2,7 +2,7 @@
 class Helper {
     errorHandler(err, status, res) {
         return res.status(status).json({
-            success: err,
+            success: false,
             error: String(err)
         })
     }
