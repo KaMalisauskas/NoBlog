@@ -25,7 +25,7 @@ export const addRating = async (req, res) => {
 export const get = async (req, res) => {
     try{
         const Posts = await PostsService.get()
-        console.log(Posts)
+        if(!Posts.length) throw new Error("No Posts exist")
         Helper.successHandler(Posts, res)
     } catch(error) {
         Helper.errorHandler(String(error), 400, res)

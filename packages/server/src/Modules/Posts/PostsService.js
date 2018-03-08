@@ -1,5 +1,5 @@
 import PostModel from "./PostModel"
-
+import mongoose from "mongoose"
 class PostsService {
     /*
         @ToDo Add validation and sanitise
@@ -28,18 +28,31 @@ class PostsService {
     //not working as it should
     get() {
         try{
-           return PostModel.aggregate(
-               [
-                   {
-                       "$lookup": {
-                           "from": "users",
-                           "localField": "authorId",
-                           "foreignField": "_id",
-                           "as": "author"
-                       }
-                   }
-               ]
-           );
+           return PostModel.aggregate()
+               .lookup({
+                   "from": "users",
+                   "localField": "authorId",
+                   "foreignField": "_id",
+                   "as": "author"
+               })
+               .lookup({
+                   "from": "categorymodels",
+                   "localField": "categoryId:",
+                   "foreignField": "_id",
+                   "as": "category"
+               })
+               .project({
+                   "_id" : 1,
+                   "title": 1,
+                   "text": 1,
+                   "rating": 1,
+                   "date": 1,
+                   "author": {"email": 1, "username":1},
+                   "category": "title"
+               })
+               .unwind("author")
+               .unwind("category")
+               .exec();
         } catch(err) {
             return err
         }

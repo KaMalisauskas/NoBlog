@@ -13,10 +13,10 @@ const PostModel = new Schema({
         required: true,
     },
     authorId: {
-        type: String,
+        type: Schema.Types.ObjectId,
     },
     categoryId: {
-        type: String
+        type: Schema.Types.ObjectId
     },
     rating: {
         type: Number,
