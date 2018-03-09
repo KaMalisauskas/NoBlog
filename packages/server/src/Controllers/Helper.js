@@ -1,3 +1,5 @@
+import Config from "../config.json"
+import AWS from "aws-sdk"
 
 class Helper {
     errorHandler(err, status, res) {
@@ -12,6 +14,28 @@ class Helper {
             data: msg
         })
     }
+     uploadToS3(data, filename) {
+        let s3bucket = new AWS.S3({
+            accessKeyId: Config.AWS.accessKey,
+            secretAccessKey: Config.AWS.secret,
+            Bucket: "noblogpostimage"
+        })
+        s3bucket.createBucket( async () => {
+            let params = {
+                Bucket: "noblogpostimage",
+                ACL: "public-read",
+                Key: filename,
+                Body: data
+            }
+            console.log(filename)
+            s3bucket.upload(params, function (err, data) {
+                if (err) throw err
+                return data
+            });
+        })
+    }
+
+
 }
 
 export default new Helper()

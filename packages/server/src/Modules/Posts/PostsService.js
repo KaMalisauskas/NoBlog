@@ -1,11 +1,25 @@
 import PostModel from "./PostModel"
 import mongoose from "mongoose"
+import Busboy from "busboy"
+import Helper from "../../Controllers/Helper"
+
 class PostsService {
     /*
         @ToDo Add validation and sanitise
      */
-    add({title, text, authorId, categoryId}) {
-        if(!title && !text && !authorId && !categoryId) throw new Error("No fields submitted")
+   async  add(req) {
+       let fields = {}
+        let busboy = new Busboy({headers: req.headers})
+       // await busboy.on("file", async (fieldname, file, filename) => {
+       //      await file.on('data', data => Helper.uploadToS3(data, filename))
+       //      console.log('2')
+       //  })
+       await busboy.on('field', (fieldname, val) => {
+           fields['fieldname'] = val
+        })
+       req.pipe(busboy);
+       console.log()
+       if(!title && !text && !authorId && !categoryId) throw new Error("No fields submitted")
         try{
             return PostModel.create({title, text, authorId, categoryId})
         } catch(err) {

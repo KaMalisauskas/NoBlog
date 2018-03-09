@@ -9,5 +9,9 @@
   "newsletter": {
     "email": "tomakajunior@gmail.com",
     "password": "juniordev"
+  },
+  "AWS": {
+    "accessKey": "AKIAJV4UDP2J5OYMO7WQ",
+    "secret": "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"
   }
 }

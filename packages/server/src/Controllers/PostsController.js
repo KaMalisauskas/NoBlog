@@ -1,11 +1,12 @@
 import Helper from "./Helper"
 import PostsService from "../Modules/Posts/PostsService"
+import Busboy from "busboy"
 
 export const index = (req, res) => Helper.successHandler("Welcome to PostsRouter of NoBlog API", req)
 
 export const add = async (req, res) => {
     try{
-        const AddPost = await PostsService.add(req.body)
+        const AddPost = await PostsService.add(req)
         Helper.successHandler(AddPost, res)
     } catch(err) {
         Helper.errorHandler(String(err), 400, res)
@@ -15,7 +16,6 @@ export const add = async (req, res) => {
 export const addRating = async (req, res) => {
     try{
         const AddRating = await PostsService.addRating(req.body)
-
         Helper.successHandler(AddRating, res)
     } catch(err) {
         Helper.errorHandler(String(err), 400, res)
@@ -27,6 +27,7 @@ export const get = async (req, res) => {
         const Posts = await PostsService.get()
         if(!Posts.length) throw new Error("No Posts exist")
         Helper.successHandler(Posts, res)
+
     } catch(error) {
         Helper.errorHandler(String(error), 400, res)
     }
